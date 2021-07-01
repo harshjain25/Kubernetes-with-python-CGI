@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="backend.js"></script>
+    <title>DOCKER OS</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@500&display=swap" rel="stylesheet">
+
+    <title>Document</title>
+
+</head>
+
+<script>
+    function lw() {
+        var i = document.getElementById("cmd").value
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://192.168.56.102/cgi-bin/cmd.py?x=" + i, true)
+
+        xhr.send();
+        xhr.onload = function() {
+            var output = xhr.responseText;
+            document.getElementById("d1").innerHTML = output;
+        }
+    }
+</script>
+
+<body>
+
+    <div id="top" >
+            !!! THANKS TO LINUX WORLD !!!
+    </div>
+
+    <div id="centre" >
+            
+            <div id="mid-1">
+                <div id="mid-1-1" >
+                    Let's do some about K8S <br>
+                    just type your command !!!
+                </div>
+                <div id="mid-1-2" >
+                    [root@localhost] <input id="cmd" size="100"  placeholder='Enter your command here...' type="search" onsearch="lw();">
+                    <button onclick="lw();">
+                        GO 
+                    </button>
+                </div>
+            </div>
+
+            <div id="mid-2">
+
+		<pre>
+			<p id="d1"> OUTPUT is here!! </p>
+                
+		</pre>
+                    
+            </div>
+    </div>
+
+
+    <div id="bottom" >  
+            Thanks to all, TEAM Techvine Squad
+    </div>
+
+
+
+
+</body>
+</html>
