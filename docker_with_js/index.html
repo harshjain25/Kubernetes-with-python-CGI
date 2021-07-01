@@ -1,0 +1,419 @@
+<html>
+
+<head>
+    <title>docker webapp</title>
+    <link rel="stylesheet" herf="/var/www/html/home.css">
+
+</head>
+
+<link rel="stylesheet" herf="home.css">
+<style>
+    * {
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 10px;
+    }
+    /* Create two columns/boxes that floats next to each other */
+    
+    nav {
+        float: left;
+        width: 100%;
+        height: 130%;
+        background: #ccc;
+        padding: 20px;
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ0MCIgaGVpZ2h0PSI2MDU0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xMjYzLjU0OCAyLjY3M0wtMTA3IDc5Mi44MDVWNzc0NWgxNjU1VjE1Ni45ODZMMTI4My42MTYgMi43MjZhMjAgMjAgMCAwIDAtMjAuMDY4LS4wNTN6IiBmaWxsPSIjRThFQUVEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIG9wYWNpdHk9Ii43Ii8+PC9zdmc+")
+    }
+    
+    article {
+        float: left;
+        padding: 20px;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTQ0MHB4IiBoZWlnaHQ9IjYzNXB4IiB2aWV3Qm94PSIwIDAgMTQ0MCA2MzUiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgPCEtLSBHZW5lcmF0b3I6IFNrZXRjaCA1MS4zICg1NzU0NCkgLSBodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2ggLS0+CiAgPHRpdGxlPkdyb3VwIDIzIENvcHk8L3RpdGxlPgogIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogIDxkZWZzPgogICAgPGZpbHRlciB4PSItMjEuMyUiIHk9Ii0zNy4yJSIgd2lkdGg9IjE0Mi42JSIgaGVpZ2h0PSIxNzQuMyUiIGZpbHRlclVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgaWQ9ImZpbHRlci0xIj4KICAgICAgPGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iMTQuNjE3NzQ1NSIgaW49IlNvdXJjZUdyYXBoaWMiPjwvZmVHYXVzc2lhbkJsdXI+CiAgICA8L2ZpbHRlcj4KICAgIDxwYXRoIGQ9Ik0wLDAgTDE0NDAsMCBMMTQ0MCwxMDEuMTg2MzQyIEw0NDYuNzU0OTI5LDYzMS44NjMyMTIgQzQ0MC43NjE1NzksNjM1LjA2NTM3NSA0MzMuNTUyMzU0LDYzNS4wMDU0MDggNDI3LjYxMzEwMSw2MzEuNzAzOTg5IEwwLDM5NC4wMDkxMDggTDAsMCBaIiBpZD0icGF0aC0yIj48L3BhdGg+CiAgICA8ZmlsdGVyIHg9Ii0zNi43JSIgeT0iLTcwLjclIiB3aWR0aD0iMTczLjQlIiBoZWlnaHQ9IjI0MS40JSIgZmlsdGVyVW5pdHM9Im9iamVjdEJvdW5kaW5nQm94IiBpZD0iZmlsdGVyLTQiPgogICAgICA8ZmVHYXVzc2lhbkJsdXIgc3RkRGV2aWF0aW9uPSIxNC42MTc3NDU1IiBpbj0iU291cmNlR3JhcGhpYyI+PC9mZUdhdXNzaWFuQmx1cj4KICAgIDwvZmlsdGVyPgogIDwvZGVmcz4KICA8ZyBpZD0iSG9tZVBhZ2UiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPGcgaWQ9Ikdyb3VwLTIzLUNvcHkiPgogICAgICA8cG9seWdvbiBpZD0iUmVjdGFuZ2xlLUNvcHktMTciIGZpbGw9IiMwMDAwMDAiIG9wYWNpdHk9IjAuMDQ2MzcyNzY3OSIgZmlsdGVyPSJ1cmwoI2ZpbHRlci0xKSIgcG9pbnRzPSI4NzQuODY2MTQ2IDUyNCA3NjAgNDU1LjQ4NDYwMiA4NTEuMTMzODU0IDQwNiA5NjYgNDc0LjUxNTM5OCI+PC9wb2x5Z29uPgogICAgICA8ZyBpZD0iR3JvdXAiPgogICAgICAgIDxtYXNrIGlkPSJtYXNrLTMiIGZpbGw9IndoaXRlIj4KICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI3BhdGgtMiI+PC91c2U+CiAgICAgICAgPC9tYXNrPgogICAgICAgIDx1c2UgaWQ9IlJlY3RhbmdsZS1Db3B5LTE2IiBmaWxsPSIjMjU5NkVDIiB4bGluazpocmVmPSIjcGF0aC0yIj48L3VzZT4KICAgICAgICA8cG9seWdvbiBpZD0iUmVjdGFuZ2xlIiBmaWxsPSIjNDRBOEY0IiBvcGFjaXR5PSIwLjM4NjYwNzE0MyIgbWFzaz0idXJsKCNtYXNrLTMpIiBwb2ludHM9IjEyMjYgLTE3NSAxNjkwIDgzLjI2NTYyNSAxNjkwIDYxNy4yNjU2MjUgMTIyNiAzNTkiPjwvcG9seWdvbj4KICAgICAgICA8cG9seWdvbiBpZD0iUmVjdGFuZ2xlLUNvcHktMiIgZmlsbD0iIzQ0QThGNCIgb3BhY2l0eT0iMC4zODY2MDcxNDMiIG1hc2s9InVybCgjbWFzay0zKSIgcG9pbnRzPSItNzAuOTUzMTI1IC0zMDQuMzc1IDc3OC42NzU3ODEgOTIuNzU3ODEyNSA3NzguNjc1NzgxIDY4My4zMjAzMTIgLTcwLjk1MzEyNSAyMjkuNjI1Ij48L3BvbHlnb24+CiAgICAgICAgPHBvbHlnb24gaWQ9IlJlY3RhbmdsZS1Db3B5IiBmaWxsPSIjNDRBOEY0IiBvcGFjaXR5PSIwLjM4NjYwNzE0MyIgbWFzaz0idXJsKCNtYXNrLTMpIiBwb2ludHM9Ijg4NiAzMiAxMzUwIDI5MC4yNjU2MjUgMTM1MCA4MjQuMjY1NjI1IDg4NiA1NjYiPjwvcG9seWdvbj4KICAgICAgICA8cG9seWdvbiBpZD0iUmVjdGFuZ2xlLUNvcHktMiIgZmlsbD0iIzIzOTBFMiIgb3BhY2l0eT0iMC4zODY2MDcxNDMiIG1hc2s9InVybCgjbWFzay0zKSIgcG9pbnRzPSI4ODYgMzIgNzc4LjY3NTc4MSA5Mi43NTc4MTI1IDc3OC42NzU3ODEgNjI2Ljc1NzgxMiA4ODYgNTY2Ij48L3BvbHlnb24+CiAgICAgICAgPGcgaWQ9Ikdyb3VwLTctQ29weS02IiBtYXNrPSJ1cmwoI21hc2stMykiPgogICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzA0LjAwMDAwMCwgNDA5LjAwMDAwMCkiPgogICAgICAgICAgICA8cG9seWdvbiBpZD0iU3Rhci1Db3B5IiBmaWxsPSIjMjU5NkVDIiBwb2ludHM9IjE1NC41IDMxOSA2IDIzNS43Mzc4NjcgNiA4My4yNjIxMzI2IDE1NC41IDAgMzAzIDgzLjI2MjEzMjYgMzAzIDIzNS43Mzc4NjciPjwvcG9seWdvbj4KICAgICAgICAgICAgPHBvbHlnb24gaWQ9IlJlY3RhbmdsZS0yLUNvcHktNSIgZmlsbD0iIzIzOTBFMiIgcG9pbnRzPSIwIDg1IDE1MiAxNzAgMTUyIDMyMyAwIDIzOCI+PC9wb2x5Z29uPgogICAgICAgICAgICA8cG9seWdvbiBpZD0iUmVjdGFuZ2xlLTItQ29weS02IiBmaWxsPSIjNDRBOEY0IiBwb2ludHM9IjE1MiAxNzAgMzA0IDg1IDMwNCAyMzggMTUyIDMyMyI+PC9wb2x5Z29uPgogICAgICAgICAgICA8cG9seWdvbiBpZD0iUmVjdGFuZ2xlLTItQ29weS03IiBmaWxsPSIjMjU5NkVDIiBwb2ludHM9IjE1MyAxNjkgMzA2IDg0LjUgMTUzLjE5OTIxOSAwIDAgODQuNSI+PC9wb2x5Z29uPgogICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgICAgICA8ZyBpZD0iR3JvdXAtNy1Db3B5LTciIG1hc2s9InVybCgjbWFzay0zKSI+CiAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjAwMDAwMCwgOTYuMDAwMDAwKSI+CiAgICAgICAgICAgIDxwb2x5Z29uIGlkPSJTdGFyLUNvcHkiIGZpbGw9IiMyNTk2RUMiIHBvaW50cz0iODguNSAxODQgMyAxMzUuOTc0MTkzIDMgNDguMDI1ODA2OSA4OC41IDAgMTc0IDQ4LjAyNTgwNjkgMTc0IDEzNS45NzQxOTMiPjwvcG9seWdvbj4KICAgICAgICAgICAgPHBvbHlnb24gaWQ9IlJlY3RhbmdsZS0yLUNvcHktNSIgZmlsbD0iIzIzOTBFMiIgcG9pbnRzPSIxLjI2MjE3NzQ1ZS0yOSA0OSA4NyA5Ny45Mjg1NzE0IDg3IDE4NiAxLjI2MjE3NzQ1ZS0yOSAxNDIuNzI2NTYyIj48L3BvbHlnb24+CiAgICAgICAgICAgIDxwb2x5Z29uIGlkPSJSZWN0YW5nbGUtMi1Db3B5LTYiIGZpbGw9IiM0NEE4RjQiIHBvaW50cz0iODcgOTcuOTI4NTcxNCAxNzQgNDkgMTc0IDEzNy4wNzE0MjkgODcgMTg2Ij48L3BvbHlnb24+CiAgICAgICAgICAgIDxwb2x5Z29uIGlkPSJSZWN0YW5nbGUtMi1Db3B5LTciIGZpbGw9IiMyNTk2RUMiIHBvaW50cz0iODggOTcgMTc2IDQ4LjUgODguMTE0NTgzMyAwIDAgNDguNSI+PC9wb2x5Z29uPgogICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgICAgPC9nPgogICAgICA8ZWxsaXBzZSBpZD0iT3ZhbC01IiBmaWxsPSIjNTNDRUFFIiBjeD0iOTE0IiBjeT0iMzU1LjUiIHJ4PSI1IiByeT0iMy41Ij48L2VsbGlwc2U+CiAgICAgIDxnIGlkPSJHcm91cC03LUNvcHktOCIgb3BhY2l0eT0iMC42MDAwMDAwMjQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDY5My4wMDAwMDAsIDI1My4wMDAwMDApIj4KICAgICAgICA8cG9seWdvbiBpZD0iU3Rhci1Db3B5IiBmaWxsPSIjMjU5NkVDIiBwb2ludHM9IjExMS42MzUzMDkgMTgxLjk4OTE1NCA5Ni4wODExMjM4IDE3My4xMDg1MzMgOTYuMDgxMTIzOCA5Mi4zNzIzNzMxIDE3Ni4zOTUyNDIgNDguMjg0OTMyOSAxOTEuOTQ5NDI3IDU3LjE2NTU1NDIgMTkxLjk0OTQyNyAxMzcuOTAxNzE0Ij48L3BvbHlnb24+CiAgICAgICAgPHBvbHlnb24gaWQ9IlJlY3RhbmdsZS0yLUNvcHktNSIgZmlsbD0iIzFFODJDRSIgcG9pbnRzPSIwLjI1ODEzOTMxOCA0NC43NTQ3NzQyIDExMS4yOTM1NDcgMTAyLjk5MTY0NCAxMTEuMjkzNTQ3IDE4NCAwLjI1ODEzOTMxOCAxMjUuNzYzMTMiPjwvcG9seWdvbj4KICAgICAgICA8cG9seWdvbiBpZD0iUmVjdGFuZ2xlLTItQ29weS02IiBmaWxsPSIjRTdFOEU5IiBwb2ludHM9IjExMS4yOTM1NDcgMTAyLjk5MTY0NCAxOTQgNTcuOTg3MDAxNyAxOTQgMTM4Ljk5NTM1OCAxMTEuMjkzNTQ3IDE4NCI+PC9wb2x5Z29uPgogICAgICAgIDxwb2x5Z29uIGlkPSJSZWN0YW5nbGUtMi1Db3B5LTciIGZpbGw9IiM1M0IyRkIiIHBvaW50cz0iMC44NzkzNTk4OTkgNDUuMTYxMDU0MiA4My41ODU4MTMgMC4yNTIxNjY0OTIgMTkzLjMzNDI3MiA1OC4xMTc1ODE0IDExMC41MjAxMjggMTAzLjAyNjQ2OSI+PC9wb2x5Z29uPgogICAgICA8L2c+CiAgICAgIDxnIGlkPSJHcm91cC03LUNvcHkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDgwNC4wMDAwMDAsIDMxMi4wMDAwMDApIj4KICAgICAgICA8cG9seWdvbiBpZD0iU3Rhci1Db3B5IiBmaWxsPSIjRkZGRkZGIiBwb2ludHM9IjgzLjM0Mjk3NTIgMTcwLjUzNTc0NyAyLjc0MzgwMTY1IDEyNi40MjgxNTggMi43NDM4MDE2NSA0NS42NTUxMDAyIDgzLjM0Mjk3NTIgMS41NDc1MTEzMSAxNjMuOTQyMTQ5IDQ1LjY1NTEwMDIgMTYzLjk0MjE0OSAxMjYuNDI4MTU4Ij48L3BvbHlnb24+CiAgICAgICAgPHBvbHlnb24gaWQ9IlJlY3RhbmdsZS0yLUNvcHktNSIgZmlsbD0iI0ZCRkJGQiIgcG9pbnRzPSIwIDQ0LjkyOTQxMTggODMgODkuOTU0NjIxOCA4MyAxNzEgMCAxMjUuOTc0NzkiPjwvcG9seWdvbj4KICAgICAgICA8cG9seWdvbiBpZD0iUmVjdGFuZ2xlLTItQ29weS02IiBmaWxsPSIjRTdFOEU5IiBvcGFjaXR5PSIwLjI5OTc3Njc4NiIgcG9pbnRzPSI4MyA4OS45NTQ2MjE4IDE2NiA0NC45Mjk0MTE4IDE2NiAxMjUuOTc0NzkgODMgMTcxIj48L3BvbHlnb24+CiAgICAgICAgPHBvbHlnb24gaWQ9IlJlY3RhbmdsZS0yLUNvcHktNyIgZmlsbD0iI0ZGRkZGRiIgcG9pbnRzPSI4MyA4OS44NTg4MjM1IDE2NiA0NC45Mjk0MTE4IDgzLjEwODA3MjkgMCAwIDQ0LjkyOTQxMTgiPjwvcG9seWdvbj4KICAgICAgPC9nPgogICAgICA8ZyBpZD0iR3JvdXAtMi1Db3B5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMTI0LjAwMDAwMCwgMTcxLjAwMDAwMCkiPgogICAgICAgIDxnIGlkPSJHcm91cC03LUNvcHktMTAiPgogICAgICAgICAgPHBvbHlnb24gaWQ9IlN0YXItQ29weSIgZmlsbD0iIzI1OTZFQyIgcG9pbnRzPSI4Ljk2MjUwMzIzIDY2Ljk2MjkxMzYgMC4yNzY5NTYzNTMgNjIuMjY4NzA3MSAwLjI3Njk1NjM1MyAyMi41OTA3MTM5IDM5LjYwNTQ2ODggMC45MjM4MjgxMjUgNDguMjkxMDE1NiA1LjYxODAzNDY2IDQ4LjI5MTAxNTYgMjUuNDU3MDMxMiA0OC4yOTEwMTU2IDQ1LjI5NjAyNzgiPjwvcG9seWdvbj4KICAgICAgICAgIDxwb2x5Z29uIGlkPSJSZWN0YW5nbGUtMi1Db3B5LTUiIGZpbGw9IiMyNThDREIiIHBvaW50cz0iMC41OTk2MDkzNzUgMjIuNTI3MzQzOCA2LjA3MTI4OTA2IDI1LjcwMTkwNzIgNi4wNzEyODkwNiA2NS41MTM2NzE5IDAuNTk5NjA5Mzc1IDYyLjMzOTEwODUiPjwvcG9seWdvbj4KICAgICAgICAgIDxwb2x5Z29uIGlkPSJSZWN0YW5nbGUtMi1Db3B5LTciIGZpbGw9IiM0MEE1RjMiIHBvaW50cz0iNi44NjkxNDA2MiAyNS42NzE4NzUgNDcuMDE4NTU0NyAzLjk3NDYwOTM4IDQwLjgwNjY0MDYgMC4zMjIyNjU2MjUgMC4yNTM5MDYyNSAyMi4zOTI4NTM5Ij48L3BvbHlnb24+CiAgICAgICAgPC9nPgogICAgICA8L2c+CiAgICAgIDxnIGlkPSJHcm91cC03LUNvcHktMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoODk0LjAwMDAwMCwgMjEyLjAwMDAwMCkiPgogICAgICAgIDxwb2x5Z29uIGlkPSJTdGFyLUNvcHkiIGZpbGw9IiMyNTk2RUMiIHBvaW50cz0iMTQgMzAgMS4yNzg5NzY5MmUtMTMgMjIuMTY5NzA1NCAxLjU0MzIxZS0xMyA3LjgzMDI5NDYgMTQgMCAyOCA3LjgzMDI5NDYgMjggMjIuMTY5NzA1NCI+PC9wb2x5Z29uPgogICAgICAgIDxwb2x5Z29uIGlkPSJSZWN0YW5nbGUtMi1Db3B5LTUiIGZpbGw9IiMyMzkwRTIiIHBvaW50cz0iMCA4IDE0IDE1Ljg1NzE0MjkgMTQgMzAgMCAyMi4xNDI4NTcxIj48L3BvbHlnb24+CiAgICAgICAgPHBvbHlnb24gaWQ9IlJlY3RhbmdsZS0yLUNvcHktNiIgZmlsbD0iIzQ0QThGNCIgcG9pbnRzPSIxNCAxNS44NTcxNDI5IDI4IDggMjggMjIuMTQyODU3MSAxNCAzMCI+PC9wb2x5Z29uPgogICAgICAgIDxwb2x5Z29uIGlkPSJSZWN0YW5nbGUtMi1Db3B5LTciIGZpbGw9IiMyNTk2RUMiIHBvaW50cz0iMTQuNSAxNSAyOSA3LjUgMTQuNTE4ODgwMiAwIDAgNy41Ij48L3BvbHlnb24+CiAgICAgIDwvZz4KICAgICAgPGcgaWQ9Ikdyb3VwLTctQ29weS05IiBvcGFjaXR5PSIwLjM0OTk5OTk5NCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoODc4LjAwMDAwMCwgMTAxLjAwMDAwMCkiPgogICAgICAgIDxwb2x5Z29uIGlkPSJTdGFyLUNvcHkiIGZpbGw9IiMyNTk2RUMiIHBvaW50cz0iNTkuNSA3OCAzMSA2Mi4wNzg0MDEgMzEgMzIuOTIxNTk5IDU5LjUgMTcgODggMzIuOTIxNTk5IDg4IDYyLjA3ODQwMSI+PC9wb2x5Z29uPgogICAgICAgIDxwb2x5Z29uIGlkPSJSZWN0YW5nbGUtMi1Db3B5LTUiIGZpbGw9IiMyMzkwRTIiIHBvaW50cz0iMS40OTMxNjQwNiAxNi4zMDM3MTA5IDU5IDQ5LjQyODU3MTQgNTkgNzkgMS40OTMxNjQwNiA0NS44NzUxMzk1Ij48L3BvbHlnb24+CiAgICAgICAgPHBvbHlnb24gaWQ9IlJlY3RhbmdsZS0yLUNvcHktNiIgZmlsbD0iIzQ0QThGNCIgcG9pbnRzPSI1OSA0OS40Mjg1NzE0IDg4IDMzIDg4IDYyLjU3MTQyODYgNTkgNzkiPjwvcG9seWdvbj4KICAgICAgICA8cG9seWdvbiBpZD0iUmVjdGFuZ2xlLTItQ29weS03IiBmaWxsPSIjMjU5NkVDIiBwb2ludHM9IjU5LjUgNDkgODkgMzMgMjkuNjI0MDIzNCAwLjI0MTIxMDkzOCAwLjA4NTYxMTk3OTIgMTYuMjQxMjEwOSI+PC9wb2x5Z29uPgogICAgICA8L2c+CiAgICAgIDxnIGlkPSJHcm91cC03LUNvcHktMyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoOTM3LjAwMDAwMCwgMTM0LjAwMDAwMCkiPgogICAgICAgIDxwb2x5Z29uIGlkPSJTdGFyLUNvcHkiIGZpbGw9IiNGRkZGRkYiIHBvaW50cz0iNS44ODk2NDg0NCA0Ny43MjQ2MDk0IDEgNDUuMDc4NDAxIDEgMTUuOTIxNTk5IDI5LjUgMCAzNC4zODk2NDg0IDIuNjQ2MjA4MzkgMzQuMzg5NjQ4NCAzMS44MDMwMTA0Ij48L3BvbHlnb24+CiAgICAgICAgPHBvbHlnb24gaWQ9IlJlY3RhbmdsZS0yLUNvcHktNSIgZmlsbD0iI0ZCRkJGQiIgcG9pbnRzPSIwIDE2IDUuMTI2NDY0ODQgMTkuNDU0NTg5OCA1LjEyNjQ2NDg0IDQ5LjAyNjAxODQgMCA0NS41NzE0Mjg2Ij48L3BvbHlnb24+CiAgICAgICAgPHBvbHlnb24gaWQ9IlJlY3RhbmdsZS0yLUNvcHktNiIgZmlsbD0iI0U3RThFOSIgcG9pbnRzPSI1IDE5LjQyODU3MTQgMzQuMzYzNDAzMyAyLjcwMzczNTM1IDM0LjM2MzQwMzMgMzEuODk2NDg0NCA1IDQ5Ij48L3BvbHlnb24+CiAgICAgICAgPHBvbHlnb24gaWQ9IlJlY3RhbmdsZS0yLUNvcHktNyIgZmlsbD0iI0ZGRkZGRiIgcG9pbnRzPSI1LjA4OTExMTMzIDE5LjQ2MDA4MyAzNC4zOTk0MTQxIDIuNzM5MjU3ODEgMjkuNTM4NDExNSAwIDAgMTYiPjwvcG9seWdvbj4KICAgICAgPC9nPgogICAgICA8ZyBpZD0iR3JvdXAtNy1Db3B5LTQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDk5OS4wMDAwMDAsIDIxNi4wMDAwMDApIj4KICAgICAgICA8cG9seWdvbiBpZD0iU3Rhci1Db3B5IiBmaWxsPSIjRkZGRkZGIiBwb2ludHM9IjE1LjUgMzAgMSAyMi4xNjk3MDU0IDEgNy44MzAyOTQ2IDE1LjUgMCAzMCA3LjgzMDI5NDYgMzAgMjIuMTY5NzA1NCI+PC9wb2x5Z29uPgogICAgICAgIDxwb2x5Z29uIGlkPSJSZWN0YW5nbGUtMi1Db3B5LTUiIGZpbGw9IiNGQkZCRkIiIHBvaW50cz0iMCA4IDE1IDE2LjIxNDI4NTcgMTUgMzEgMCAyMi43ODU3MTQzIj48L3BvbHlnb24+CiAgICAgICAgPHBvbHlnb24gaWQ9IlJlY3RhbmdsZS0yLUNvcHktNiIgZmlsbD0iI0U3RThFOSIgcG9pbnRzPSIxNSAxNi4yMTQyODU3IDMwIDggMzAgMjIuNzg1NzE0MyAxNSAzMSI+PC9wb2x5Z29uPgogICAgICAgIDxwb2x5Z29uIGlkPSJSZWN0YW5nbGUtMi1Db3B5LTciIGZpbGw9IiNGRkZGRkYiIHBvaW50cz0iMTUgMTYgMzAgOCAxNS4wMTk1MzEyIDAgMCA4Ij48L3BvbHlnb24+CiAgICAgIDwvZz4KICAgICAgPGcgaWQ9Ikdyb3VwLTctQ29weS01IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg5NTkuMDAwMDAwLCAyMTIuMDAwMDAwKSI+CiAgICAgICAgPHBvbHlnb24gaWQ9IlN0YXItQ29weSIgZmlsbD0iI0ZGRkZGRiIgcG9pbnRzPSI5LjUgMTggMSAxMy4zMDE4MjMyIDEgNC42OTgxNzY3NiA5LjUgMCAxOCA0LjY5ODE3Njc2IDE4IDEzLjMwMTgyMzIiPjwvcG9seWdvbj4KICAgICAgICA8cG9seWdvbiBpZD0iUmVjdGFuZ2xlLTItQ29weS01IiBmaWxsPSIjRkJGQkZCIiBwb2ludHM9IjAgNSA5IDEwIDkgMTkgMCAxNCI+PC9wb2x5Z29uPgogICAgICAgIDxwb2x5Z29uIGlkPSJSZWN0YW5nbGUtMi1Db3B5LTYiIGZpbGw9IiNFN0U4RTkiIHBvaW50cz0iOSAxMCAxOCA1IDE4IDE0IDkgMTkiPjwvcG9seWdvbj4KICAgICAgICA8cG9seWdvbiBpZD0iUmVjdGFuZ2xlLTItQ29weS03IiBmaWxsPSIjRkZGRkZGIiBwb2ludHM9IjkgMTAgMTggNSA5LjAxMTcxODc1IDAgMCA1Ij48L3BvbHlnb24+CiAgICAgIDwvZz4KICAgICAgPGcgaWQ9Ikdyb3VwLTIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDExMjkuMDAwMDAwLCAxNzQuMDAwMDAwKSI+CiAgICAgICAgPHBvbHlnb24gaWQ9IlJlY3RhbmdsZS1Db3B5LTE4IiBmaWxsPSIjMDAwMDAwIiBvcGFjaXR5PSIwLjA0NjM3Mjc2NzkiIGZpbHRlcj0idXJsKCNmaWx0ZXItNCkiIHBvaW50cz0iODcuMzI2NTkwNiAxMzEuMDI3OTM5IDcgODkuNjMzODI0OCA0NS41NjQ3MjM1IDY5IDEyNi40Mzk3MjQgMTEwLjEzNzA5MSI+PC9wb2x5Z29uPgogICAgICAgIDxnIGlkPSJHcm91cC03LUNvcHktMTAiPgogICAgICAgICAgPHBvbHlnb24gaWQ9IlN0YXItQ29weSIgZmlsbD0iI0ZGRkZGRiIgcG9pbnRzPSI4Ni42NjczNTU0IDEwOS4wMTE3NjUgMC4yNzY5NTYzNTMgNjIuMjY4NzA3MSAwLjI3Njk1NjM1MyAyMi41OTA3MTM5IDM5LjYwNTQ2ODggMC45MjM4MjgxMjUgMTI1Ljk5NTg2OCA0Ny42NjY4ODU4IDEyNS45OTU4NjggODcuMzQ0ODc4OSI+PC9wb2x5Z29uPgogICAgICAgICAgPHBvbHlnb24gaWQ9IlJlY3RhbmdsZS0yLUNvcHktNiIgZmlsbD0iI0U3RThFOSIgcG9pbnRzPSI4Ni41IDcwLjE4ODIzNTMgMTI3IDQ4LjA3MDU4ODIgMTI3IDg3Ljg4MjM1MjkgODYuNSAxMTAiPjwvcG9seWdvbj4KICAgICAgICAgIDxwb2x5Z29uIGlkPSJSZWN0YW5nbGUtMi1Db3B5LTUiIGZpbGw9IiNGQkZCRkIiIHBvaW50cz0iMC41OTk2MDkzNzUgMjIuNTI3MzQzOCA4Ni41IDcwLjE4ODIzNTMgODYuNSAxMTAgMC41OTk2MDkzNzUgNjIuMzM5MTA4NSI+PC9wb2x5Z29uPgogICAgICAgICAgPHBvbHlnb24gaWQ9IlJlY3RhbmdsZS0yLUNvcHktNyIgZmlsbD0iI0ZGRkZGRiIgcG9pbnRzPSI4Ni41IDcwLjE0MTE3NjUgMTI3IDQ4LjA3MDU4ODIgNDAuODA2NjQwNiAwLjMyMjI2NTYyNSAwLjI1MzkwNjI1IDIyLjM5Mjg1MzkiPjwvcG9seWdvbj4KICAgICAgICA8L2c+CiAgICAgIDwvZz4KICAgICAgPHBhdGggZD0iIiBpZD0iUGF0aC00IiBzdHJva2U9IiM5Nzk3OTciIHN0cm9rZS13aWR0aD0iNSIgc3Ryb2tlLWxpbmVjYXA9InNxdWFyZSI+PC9wYXRoPgogICAgICA8cGF0aCBkPSIiIGlkPSJQYXRoLTYiIHN0cm9rZT0iIzk3OTc5NyIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIj48L3BhdGg+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4K");
+        /* background-color: hsl(240, 50%, 10%);*/
+        height: 130%;
+        /* only for demonstration, should be removed */
+        background-size: cover;
+    }
+    /* Clear floats after the columns */
+    
+    section::after {
+        box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+        content: "";
+        display: table;
+        clear: both;
+    }
+    
+    nav div {
+        border: 2px solid;
+        width: 100px;
+        border: none;
+        background-color: #007bff;
+    }
+    
+    div {
+        box-shadow: 10px 10px 5px #aaaaaa;
+        margin: 13px;
+    }
+    
+    #in1 {
+        width: 400px;
+        font-size: 16px;
+        margin: 20px;
+        padding: 8px 13px;
+        border: none;
+        box-shadow: 10px 10px 5px #aaaaaa;
+    }
+    
+    div {
+        font-size: 15px;
+    }
+    
+    input {
+        border-radius: 8px;
+    }
+    
+    button {
+        border-radius: 8px;
+        font-size: 16px;
+        padding: 8px 23px;
+        border: none;
+        box-shadow: 6px 6px 4px #aaaaaa;
+    }
+    
+    button div input {
+        box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+    }
+    
+    .sidebar {
+        height: 100%;
+        width: 30%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+        margin: 0px;
+    }
+    
+    .sidebar .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+    
+    .openbtn {
+        font-size: 16px;
+        cursor: pointer;
+        padding: 8px 13px;
+        border: none;
+    }
+    
+    .openbtn:hover {
+        background-color: #444;
+    }
+    
+    #main {
+        transition: margin-left .5s;
+        padding: 16px;
+    }
+    /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+    
+    @media screen and (max-height: 450px) {
+        .sidebar {
+            padding-top: 15px;
+        }
+        .sidebar a {
+            font-size: 18px;
+        }
+    }
+    
+    .body1 {}
+</style>
+
+<script>
+    function lw() {
+        var i = document.getElementById("in1").value
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://192.168.43.5/cgi-bin/cmd.py?x=" + i, true)
+
+        xhr.send();
+        xhr.onload = function() {
+            var output = xhr.responseText;
+            document.getElementById("d1").innerHTML = output;
+        }
+    }
+</script>
+<script>
+    function lw1() {
+        var a = document.getElementById("section").value
+        var b = document.getElementById("in2").value
+        var xhra = new XMLHttpRequest();
+        xhra.open("GET", "http://192.168.43.5/cgi-bin/run_docker.py?b=" + b + "&a=" + a, true);
+
+        xhra.send();
+        xhra.onload = function() {
+            var output = xhra.responseText;
+            document.getElementById("d1").innerHTML = output;
+        }
+    }
+</script>
+<script>
+    function lw2() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://192.168.43.5/cgi-bin/distroy_docker.py", true);
+
+        xhr.send();
+        xhr.onload = function() {
+            var output = xhr.responseText;
+            document.getElementById("d1").innerHTML = output;
+        }
+    }
+</script>
+<script>
+    function lw3() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://192.168.43.5/cgi-bin/docker_running.py", true);
+
+        xhr.send();
+        xhr.onload = function() {
+            var output = xhr.responseText;
+            document.getElementById("d1").innerHTML = output;
+        }
+    }
+</script>
+<script>
+    function lw4() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://192.168.43.5/cgi-bin/docker_image.py", true);
+
+        xhr.send();
+        xhr.onload = function() {
+            var output = xhr.responseText;
+            document.getElementById("d1").innerHTML = output;
+        }
+    }
+</script>
+
+
+<script>
+    function lw5() {
+        var stop = document.getElementById("stop").value
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://192.168.43.5/cgi-bin/docker_stop.py?stop=" + stop, true);
+
+        xhr.send();
+        xhr.onload = function() {
+            var output = xhr.responseText;
+            document.getElementById("d1").innerHTML = output;
+        }
+    }
+</script>
+<script>
+    function lw6() {
+        var start = document.getElementById("start").value
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://192.168.43.5/cgi-bin/docker_start.py?start=" + start, true);
+
+        xhr.send();
+        xhr.onload = function() {
+            var output = xhr.responseText;
+            document.getElementById("d1").innerHTML = output;
+        }
+    }
+</script>
+
+<script>
+    function openNav() {
+        document.getElementById("mySidebar").style.width = "300px";
+        document.getElementById("main").style.marginLeft = "300px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidebar").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+    }
+</script>
+<script>
+    function lw7() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://192.168.43.5/cgi-bin/docker_all_.py", true);
+
+        xhr.send();
+        xhr.onload = function() {
+            var output = xhr.responseText;
+            document.getElementById("d1").innerHTML = output;
+        }
+    }
+</script>
+<script>
+    function lw8() {
+        var install = document.getElementById("install").value
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://192.168.43.5/cgi-bin/docker_install.py?install=" + install, true);
+
+        xhr.send();
+        xhr.onload = function() {
+            var output = xhr.responseText;
+            document.getElementById("d1").innerHTML = output;
+        }
+    }
+</script>
+
+<script>
+    function lw9() {
+        var delete1 = document.getElementById("id3").value
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://192.168.43.5/cgi-bin/docker_delete.py?imagename=" + delete1, true);
+
+        xhr.send();
+        xhr.onload = function() {
+            var output = xhr.responseText;
+            document.getElementById("d1").innerHTML = output;
+        }
+    }
+</script>
+
+<body class="body1">
+
+
+    <center>
+        <section>
+            <div id="mySidebar" class="sidebar">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+                <nav>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                    <script>
+                        $(document).ready(function() {
+                            $("#btn1").click(function() {
+                                $("#runbox").slideToggle();
+                            });
+                        });
+                    </script>
+                    <button id="btn1" style="width: 70%;  background-color: #007bff; color: white;">run the contaner</button>
+                    <div id="runbox" style="width: 70%; background-color:  #007bff;">
+                        <select id="section" style="width: 90%; margin: 4px; padding: 2px; border-radius: 8px;">
+			      <option>centos</option>
+			      <option>ubuntu:14.04 </option>
+			      <option>fedora</option>
+			      <option>Arch linux</option>
+			      <option>Debain</option>
+		             
+		      </select><br>
+                        <input style="width: 90%; " id="in2" placeholder="Enter your container name"><br>
+                        <button onclick="lw1()" style="width: 90%;  padding: 2px; margin: 4px; color: #007bff; background-color: white;"> RUN </button>
+                    </div>
+
+
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                    <script>
+                        $(document).ready(function() {
+                            $("#btn2").click(function() {
+                                $("#d2").slideToggle();
+                            });
+                        });
+                    </script>
+                    <button id="btn2" style="width: 70%; padding: 2px; margin: 4px; background-color: #007bff; color: white;">distroy the contaner</button>
+                    <div id="d2" style="width: 70%; background-color:  #007bff;">
+                        <input style="width: 90%;  padding: 2px; margin: 4px;" id="id3" placeholder="enter cntainer name">
+                        <button onclick="lw9()" style="width: 90%;  padding: 2px; margin: 4px; color: #007bff; background-color: white;"> delete  </button>
+
+                    </div>
+                    </script>
+                    <button onclick="lw2();" id="btn2" style="width: 70%; padding: 2px; margin: 4px; background-color: #007bff; color: white;">distroy the all contaner</button>
+
+
+
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                    <script>
+                        $(document).ready(function() {
+                            $("#btn3").click(function() {
+                                $("#d3").slideToggle();
+                            });
+                        });
+                    </script>
+
+                    <button id="btn3" style="width: 70%; padding: 2px; margin: 4px; background-color: #007bff; color: white;">execute the container</button>
+                    <div id="d3" style="width: 70%; background-color:  #007bff;">
+                        <input style="width: 90%;  padding: 2px; margin: 4px;" id="id3" placeholder="enter cntainer name">
+                    </div>
+
+                    <button onclick="lw3();" id="btn4" style="width: 70%; padding: 2px; margin: 4px; background-color: #007bff; color: white;">show running container </button>
+
+                    <button onclick="lw4();" id="btn" style="width: 70%; padding: 2px; margin: 4px; background-color: #007bff; color: white;">show docker images</button>
+
+
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                    <script>
+                        $(document).ready(function() {
+                            $("#btn5").click(function() {
+                                $("#d5").slideToggle();
+                            });
+                        });
+                    </script>
+
+                    <button id="btn5" style="width: 70%; padding: 2px; margin: 4px; background-color:#007bff;color: white;">stop the container</button>
+                    <div id="d5" style="width: 70%; background-color:  #007bff;color: white;">
+                        <input style="width: 90%;  padding: 2px; margin: 4px;" id="stop" placeholder="enter cntainer name">
+                        <button onclick="lw5();" style="color: #007bff; background-color: white;">Stop</button>
+                    </div>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                    <script>
+                        $(document).ready(function() {
+                            $("#btn6").click(function() {
+                                $("#d6").slideToggle();
+                            });
+                        });
+                    </script>
+
+                    <button id="btn6" style="width: 70%; padding: 2px; margin: 4px; background-color: #007bff; color: white;">start the container</button>
+                    <div id="d6" style="width: 70%; background-color:  #007bff;">
+                        <input style="width: 90%;  padding: 2px; margin: 4px; " id="start" placeholder="enter cntainer name">
+                        <button onclick="lw6();" style="color: #007bff; background-color: white;">Start</button>
+                    </div>
+
+
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                    <script>
+                        $(document).ready(function() {
+                            $("button#btn7").click(function() {
+                                $("div#d7").slideToggle();
+                            });
+                        });
+                    </script>
+
+                    <button id="btn7" style="width: 70%; padding: 2px; margin: 4px; background-color: #007bff; color: white;">install container images</button>
+                    <div id="d7" style="width: 70%; background-color:  #007bff;">
+                        <input style="width: 90%;  padding: 2px; margin: 4px; " id="install" placeholder="Enter image name:virsion">
+                        <button onclick="lw8();" style="color: #007bff; background-color: white;">Install</button>
+                    </div>
+
+                    <button onclick="lw7();" id="btn8" style="width: 70%; padding: 2px; margin: 4px; background-color: #007bff; color: white; border: 1px;">show all containers</button>
+
+
+                </nav>
+            </div>
+            <article>
+                <p>
+                    <img style="float: left;" src="https://d1q6f0aelx0por.cloudfront.net/product-logos/library-docker-logo.png" width="150px" ; height="100px" ;>
+                    <button class="openbtn" onclick="openNav()" style="background-color: white; color: #007bff;">☰ Open Sidebar</button>
+                    <input id="in1" type="search" placeholder="Enter your command..." onsearch="lw()">
+                    <button nclick="lw();" style="color: #007bff; background-color: white; width: 100px;">GO</button>
+                </p>
+                <h1 style="font-size: 22px; color: red;"></h1>
+                <pre>
+		    <p id="d1" style="color: white; font-size: 16px"></p>
+		    </pre>
+            </article>
+        </section>
+    </center>
+</body>
+<html
